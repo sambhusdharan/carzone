@@ -31,35 +31,25 @@
 	<table class="table table-hover">
 	  <thead>
 		<tr>
-		  <th scope="col">#</th>
+		  <th scope="col">Car id</th>
 		  <th scope="col">Car Name</th>
-		  <th scope="col">Location</th>
-		  <th scope="col">State</th>
-		  <th scope="col">Action</th>
-		  <th scope="col">View</th>
+		  <th scope="col">Enquired</th>
+		  <th scope="col">Email</th>
+		  <th scope="col">Phone</th>
+		  <th scope="col">Delete</th>
 		</tr>
 	  </thead>
 	  <tbody>
-	  {% for value in data %}
+	  {% for val in data %}
 		<tr>
-		  <th scope="row">1</th>
-		  <td>{{value.car_title}}</td>
-		  <td>{{value.city}}</td>
-		  <td>{{value.state}}</td>
-		  <td><a href="{% url 'delete' value.car_id %}" class="btn btn-outline-dark">Delete</a></td>
-		  <td><a href="{% url 'latest_car' value.car_id %}" class="btn btn-outline-dark">View</a></td>
+		  <th scope="row">{{ val.car_id }}</th>
+		  <td>{{ val.car_title }}</td>
+		  <td>{{ val.customer_need}}</td>
+		  <td>{{ val.email }}</td>
+		  <td>{{ val.phone }}</td>
+	      <td><a href="{% url 'delete' val.car_id %}" class="btn btn-outline-dark">Delete</a></td>
 		</tr>
 	  {% endfor %}
-
-<!--	  {% for val in cardata %}-->
-<!--		<tr>-->
-<!--		  <th scope="row">1</th>-->
-<!--		  <td>{{val.car_title}}</td>-->
-<!--		  <td>{{val.city}}</td>-->
-<!--		  <td>{{val.state}}</td>-->
-<!--		  <td><a href="{% url 'car_detail'  val.car_id %}" class="btn btn-outline-dark">View Car</a></td>-->
-<!--		</tr>-->
-<!--	  {% endfor %}-->
 
 	  </tbody>
 	</table>

@@ -31,7 +31,7 @@ def inquiry(request):
         send_mail(
             'New Car inquiry',
             'You have a new inquiry for the car with ID: ' + car_id+ ' and car Name: '+ car_title+ ' Please login to admin pannel for more detail' ,
-            'sambhusdharan@gmail.com', #from email address
+            'myweddingcorp23@gmail.com', #from email address
             [admin_email], #To email address
             fail_silently=False,
                  )

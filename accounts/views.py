@@ -52,30 +52,8 @@ def register(request):
 @login_required(login_url = 'login')
 def dashboard(request):
 
-    needed_value=Contact.objects.values('car_title').filter(user_id=request.user.id)
-    print(needed_value)
-    carval=carlatest.objects.values('cartitle')
-    print(carval)
-    if carval:
-        if needed_value:
-            data = Contact.objects.order_by('-created_date').filter(user_id=request.user.id)
-            return render(request, 'accounts/dashboard.html', {'data': data})
-            print("found")
-    else:
-        car = Contact.objects.order_by('-created_date').filter(user_id=request.user.id)
-        return render(request, 'accounts/dashboard.html', {'cardata': car})
-        print("not")
-    # else:
-    #     data = Contact.objects.order_by('-created_date').filter(user_id=request.user.id)
-    #     return render(request, 'accounts/dashboard.html', {'val': data})
-
-    # data = Contact.objects.order_by('-created_date').filter(user_id=request.user.id)
-    # return render(request, 'accounts/dashboard.html', {'data': data})
-
-
-
-
-
+    data = Contact.objects.all().order_by('created_date').filter(user_id=request.user.id)
+    return render(request, 'accounts/dashboard.html', {'data': data})
 
 def logout(request):
     if request.method == 'POST':
@@ -83,6 +61,6 @@ def logout(request):
     return redirect('login')
 
 def delete(request,id):
-    car_del = Contact.objects.get(car_id=id)
+    car_del = Contact.objects.all().filter(car_id=id)
     car_del.delete()
     return redirect('dashboard')

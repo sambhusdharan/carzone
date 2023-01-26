@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import car,carlatest
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 def cars(request):
     cars_featur=car.objects.order_by('-created_date').filter(is_featured=True)
@@ -17,11 +19,11 @@ def cars(request):
     transmission_latest = carlatest.objects.values_list('transmission',flat=True).distinct()
     return render(request,'car/cars.html',{'carf':cars_featur,'carlat':cars_lates,'model_feature':model_feature,'model_latest':model_latest,'city_feature':city_feature,'city_latest':city_latest,'year_feature':year_feature,'year_latest':year_latest,'body_feature':body_feature,'body_latest':body_latest,'transmission_feature':transmission_feature,'transmission_latest':transmission_latest})
 
-
+@login_required(login_url = 'login')
 def car_detail(request,id):
   car_detail=get_object_or_404(car,id=id)
   return render(request,'car/car_detail.html',{'cardetail':car_detail})
-
+@login_required(login_url = 'login')
 def latest_car(request,id):
     latest = get_object_or_404(carlatest, id=id)
     return render(request, 'car/latest_detail.html', {'latest': latest})
@@ -79,13 +81,13 @@ def search(request):
             featu_search = car.objects.all().filter(transmission__iexact=transmission)
             lates_search = carlatest.objects.all().filter(transmission__iexact=transmission)
 
-    if 'min_price' in request.GET:
-        min_price = request.GET['min_price']
-        max_price = request.GET['max_price']
-        if max_price:
-            featu_search = car.objects.all().filter(price__gte = min_price, price__lte = max_price)
-            print('feature price',featu_search)
-            lates_search = carlatest.objects.all().filter(price__gte = min_price, price__lte = max_price)
-            print('latest price', lates_search)
+    # if 'min_price' in request.GET:
+    #     min_price = request.GET['min_price']
+    #     max_price = request.GET['max_price']
+    #     if max_price:
+    #         featu_search = car.objects.all().filter(price__gte = min_price, price__lte = max_price)
+    #         print('feature price',featu_search)
+    #         lates_search = carlatest.objects.all().filter(price__gte = min_price, price__lte = max_price)
+    #         print('latest price', lates_search)
 
     return render(request,'pages/search.html',{'feature_search':featu_search,'latest_search':lates_search,'model_feature':model_feature,'model_latest':model_latest,'city_feature':city_feature,'city_latest':city_latest,'year_feature':year_feature,'year_latest':year_latest,'body_feature':body_feature,'body_latest':body_latest,'transmission_feature':transmission_feature,'transmission_latest ':transmission_latest })

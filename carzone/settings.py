@@ -155,6 +155,6 @@ SITE_ID = 1
 #Email senting
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'sambhusdharan@gmail.com'
-EMAIL_HOST_PASSWORD = 'nfgbzrgubqnlbvcx'
+EMAIL_HOST_USER = 'myweddingcorp23@gmail.com'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
